@@ -1,5 +1,5 @@
 export const beefyfinance = {
-  strategyOwner: "0x8f0fFc8C7FC3157697Bdbf94B328F7141d6B41de",
+  strategyOwner: "0x8f0fFc8C7FC3157697Bdbf94B328F7141d6B41dE",
   vaultOwner: "0x8f0fFc8C7FC3157697Bdbf94B328F7141d6B41de",
   keeper: "0x10aee6B5594942433e7Fc2783598c979B030eF3D",
   rewarder: "0xd529b1894491a0a26B18939274ae8ede93E81dbA",
