@@ -3,6 +3,9 @@ name: Push actions
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - 'package.json'
+      - 'CHANGELOG.md'
 
 jobs:
   build:
@@ -26,6 +29,14 @@ jobs:
       - run: yarn checksum
       # transpile from Typescript to Javascript
       - run: yarn compile
+      # bump package version and commit. Note that this won't create an infinite github action push loop, as we have added package.json to paths-ignore.
+      # this is from https://medium.com/swlh/bump-bump-bump-d0dab616e83
+      - name: Bump version and push tag
+        uses: TriPSs/conventional-changelog-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          git-message: 'chore(release): {version}'
+          output-file: 'CHANGELOG.md'
       # publish package
       - run: yarn publish --access public
         env:
