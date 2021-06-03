@@ -11,6 +11,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    permissions: 
+      contents: read/write
+      packages: write 
     steps:
       # get repo code
       - uses: actions/checkout@v2
@@ -27,13 +30,9 @@ jobs:
       # transpile from Typescript to Javascript
       - run: yarn compile
       # bump package version and commit. Note that this won't create an infinite github action push loop, as we have added package.json to paths-ignore.
-      - name: "Automated Version Bump"
-        id: version-bump  
-        uses: "phips28/gh-action-bump-version@master"
+      - uses: tool3/bump@v1.1.3
         with:
-          tag-prefix: 'v'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       # publish package
       - run: yarn publish --access public
         env:
