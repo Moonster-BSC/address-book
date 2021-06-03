@@ -11,6 +11,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    permissions: 
+      contents: write
+      packages: write 
     steps:
       # get repo code
       - uses: actions/checkout@v2
@@ -30,6 +33,7 @@ jobs:
       - uses: tool3/bump@v1.1.3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
       # publish package
       - run: yarn publish --access public
         env:
