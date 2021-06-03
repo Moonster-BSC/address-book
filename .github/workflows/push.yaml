@@ -28,12 +28,12 @@ jobs:
       - run: yarn compile
       # bump package version and commit. Note that this won't create an infinite github action push loop, as we have added package.json to paths-ignore.
       - name: "Automated Version Bump"
-        id: version-bump
+        id: version-bump  
         uses: "phips28/gh-action-bump-version@master"
         with:
           tag-prefix: 'v'
         env:
-          GITHUB_TOKEN: ${{ secrets.ALLTOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # publish package
       - run: yarn publish --access public
         env:
