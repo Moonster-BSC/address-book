@@ -30,13 +30,11 @@ jobs:
       # transpile from Typescript to Javascript
       - run: yarn compile
       # bump package version and commit. Note that this won't create an infinite github action push loop, as we have added package.json to paths-ignore.
-      - name: "Automated Version Bump"
-        id: version-bump
-        uses: "phips28/gh-action-bump-version@master"
+      - name: Bump version and push tag
+        id: github_tag_action
+        uses: mathieudutour/github-tag-action@v4.5
         with:
-          tag-prefix: 'v'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       # publish package
       - run: yarn publish --access public
         env:
